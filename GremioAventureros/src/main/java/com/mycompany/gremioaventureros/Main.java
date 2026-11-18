@@ -34,4 +34,14 @@ public class Main {
         return texto;
     }
     
+    public static double reporteNivelPromedio(ArrayList<Personaje> lista) {
+        if (lista.isEmpty()) {
+            return 0;
+        }
+        int suma = 0;
+        for (Personaje p : lista) {
+            suma = suma + p.getNivelTotal();
+        }
+        return (double) suma / lista.size();
+    }    
 }
