@@ -33,6 +33,6 @@ public class Guerrero extends Aventurero {
 
     @Override
     public String toString() {
-        return super.toString() + " - Armadura pesada: " + (armaduraPesada ? "Si" : "No");
+        return super.toString() + " - Armadura pesada: " + (armaduraPesada ? "Sí" : "No");
     }
 }
