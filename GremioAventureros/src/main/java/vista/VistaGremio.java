@@ -18,7 +18,80 @@ public class VistaGremio extends javax.swing.JFrame {
     public VistaGremio() {
         initComponents();
     }
+    public javax.swing.JTextField getTxtNombre() {
+        return txtNombre;
+    }
 
+    public javax.swing.JTextField getTxtPuntosVida() {
+        return txtPuntosVida;
+    }
+
+    public javax.swing.JComboBox<String> getCmbClase(int fila) {
+        switch (fila) {
+            case 1:
+                return cmbClase1;
+            case 2:
+                return cmbClase2;
+            case 3:
+                return cmbClase3;
+            default:
+                return cmbClase4;
+        }
+    }
+
+    public javax.swing.JTextField getTxtNivel(int fila) {
+        switch (fila) {
+            case 1:
+                return txtNivel1;
+            case 2:
+                return txtNivel2;
+            case 3:
+                return txtNivel3;
+            default:
+                return txtNivel4;
+        }
+    }
+
+    public javax.swing.JTextField getTxtAtributo(int fila) {
+        switch (fila) {
+            case 1:
+                return txtAtributo1;
+            case 2:
+                return txtAtributo2;
+            case 3:
+                return txtAtributo3;
+            default:
+                return txtAtributo4;
+        }
+    }
+
+    public javax.swing.JComboBox<String> getCmbClaseCombate() {
+        return cmbClaseCombate;
+    }
+
+    public javax.swing.JButton getBtnRegistrar() {
+        return btnRegistrar;
+    }
+
+    public javax.swing.JButton getBtnVerGremio() {
+        return btnVerGremio;
+    }
+
+    public javax.swing.JButton getBtnReportes() {
+        return btnReportes;
+    }
+
+    public javax.swing.JButton getBtnLanzarDados() {
+        return btnLanzarDados;
+    }
+
+    public javax.swing.JButton getBtnSimular() {
+        return btnSimular;
+    }
+
+    public void mostrarMensaje(String texto) {
+        areaResultados.setText(texto);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
