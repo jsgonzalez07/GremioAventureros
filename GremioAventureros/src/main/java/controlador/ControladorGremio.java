@@ -32,8 +32,8 @@ public class ControladorGremio implements ActionListener {
         this.vista = vista;
         this.personajes = new ArrayList<>();
         this.ganador = null;
-
-        this.vista.getBtnRegistrar().addActionListener(this);        
+        this.vista.getBtnRegistrar().addActionListener(this);    
+        this.vista.getBtnVerGremio().addActionListener(this);        
     }
 
     @Override
@@ -42,6 +42,8 @@ public class ControladorGremio implements ActionListener {
 
         if (fuente == vista.getBtnRegistrar()) {
             registrarDesdeVista();
+        } else if (fuente == vista.getBtnVerGremio()) {
+            vista.mostrarMensaje(listarGremio());
         }
     }
 
@@ -144,6 +146,19 @@ public class ControladorGremio implements ActionListener {
         return numero;
     }    
 
+    public String listarGremio() {
+        if (personajes.isEmpty()) {
+            return "El gremio no tiene aventureros registrados.";
+        }
+        String texto = "Aventureros del gremio (" + personajes.size() + "):\n\n";
+        int numero = 1;
+        for (Personaje p : personajes) {
+            texto = texto + numero + ". " + p.toString() + "\n\n";
+            numero++;
+        }
+        return texto;
+    }    
+    
     private void limpiarCampos() {
         vista.getTxtNombre().setText("");
         vista.getTxtPuntosVida().setText("");
