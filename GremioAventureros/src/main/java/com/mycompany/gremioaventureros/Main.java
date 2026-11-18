@@ -3,7 +3,11 @@
  */
 
 package com.mycompany.gremioaventureros;
-
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import modelo.Aventurero;
+import modelo.Personaje;
 /**
  *
  * @author juans
@@ -13,4 +17,21 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello World!");
     }
+    
+    public static String reporteCantidadPorClase(ArrayList<Personaje> lista) {
+        Map<String, Integer> conteo = new LinkedHashMap<>();
+        for (Personaje p : lista) {
+            for (Aventurero clase : p.getClases()) {
+                String nombreClase = clase.getNombreClase();
+                conteo.put(nombreClase, conteo.getOrDefault(nombreClase, 0) + 1);
+            }
+        }
+
+        String texto = "Cantidad de aventureros por clase:\n";
+        for (Map.Entry<String, Integer> fila : conteo.entrySet()) {
+            texto = texto + "  - " + fila.getKey() + ": " + fila.getValue() + "\n";
+        }
+        return texto;
+    }
+    
 }
