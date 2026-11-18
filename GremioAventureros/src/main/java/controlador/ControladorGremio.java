@@ -37,7 +37,7 @@ public class ControladorGremio implements ActionListener {
         this.vista.getBtnVerGremio().addActionListener(this);
         this.vista.getBtnLanzarDados().addActionListener(this);
         this.vista.getBtnSimular().addActionListener(this);
-        this.vista.getBtnSimular().addActionListener(this);        
+        this.vista.getBtnReportes().addActionListener(this);       
     }
 
     @Override
