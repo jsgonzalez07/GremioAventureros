@@ -34,7 +34,8 @@ public class ControladorGremio implements ActionListener {
         this.ganador = null;
         this.vista.getBtnRegistrar().addActionListener(this);    
         this.vista.getBtnVerGremio().addActionListener(this);
-        this.vista.getBtnLanzarDados().addActionListener(this);        
+        this.vista.getBtnLanzarDados().addActionListener(this);
+        this.vista.getBtnSimular().addActionListener(this);        
     }
 
     @Override
@@ -47,6 +48,8 @@ public class ControladorGremio implements ActionListener {
             vista.mostrarMensaje(listarGremio());
         } else if (fuente == vista.getBtnLanzarDados()) {
             vista.mostrarMensaje(lanzarDados());
+        } else if (fuente == vista.getBtnSimular()) {
+            vista.mostrarMensaje(simularCombate());
         }
     }
 
@@ -199,6 +202,21 @@ public class ControladorGremio implements ActionListener {
 
         return texto + "\nGanador: " + ganador.getNombre()
              + ". Elige la clase para pelear y presiona Simular combate.";
+    }
+
+    public String simularCombate() {
+        if (ganador == null) {
+            return "Primero debe lanzar los dados.";
+        }
+        String nombreClase = (String) vista.getCmbClaseCombate().getSelectedItem();
+        Aventurero clase = ganador.buscarClase(nombreClase);
+
+        String accion = clase.simularCombate();
+        RegistroGremio.guardar("Combate: " + accion);
+
+        ganador = null;
+        vista.getCmbClaseCombate().removeAllItems();
+        return "Simulación de combate:\n\n" + accion;
     }
     
     private void limpiarCampos() {
