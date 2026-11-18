@@ -18,6 +18,7 @@ import modelo.Monje;
 import modelo.Paladin;
 import modelo.Picaro;
 import modelo.RegistroGremio;
+import com.mycompany.gremioaventureros.Main;
 /**
  *
  * @author juans
@@ -35,6 +36,7 @@ public class ControladorGremio implements ActionListener {
         this.vista.getBtnRegistrar().addActionListener(this);    
         this.vista.getBtnVerGremio().addActionListener(this);
         this.vista.getBtnLanzarDados().addActionListener(this);
+        this.vista.getBtnSimular().addActionListener(this);
         this.vista.getBtnSimular().addActionListener(this);        
     }
 
@@ -46,6 +48,8 @@ public class ControladorGremio implements ActionListener {
             registrarDesdeVista();
         } else if (fuente == vista.getBtnVerGremio()) {
             vista.mostrarMensaje(listarGremio());
+        } else if (fuente == vista.getBtnReportes()) {
+            vista.mostrarMensaje(generarReportes());
         } else if (fuente == vista.getBtnLanzarDados()) {
             vista.mostrarMensaje(lanzarDados());
         } else if (fuente == vista.getBtnSimular()) {
@@ -217,6 +221,16 @@ public class ControladorGremio implements ActionListener {
         ganador = null;
         vista.getCmbClaseCombate().removeAllItems();
         return "Simulación de combate:\n\n" + accion;
+    }
+
+    public String generarReportes() {
+        if (personajes.isEmpty()) {
+            return "No hay aventureros para generar reportes.";
+        }
+        double promedio = Main.reporteNivelPromedio(personajes);
+        return Main.reporteCantidadPorClase(personajes)
+             + "\nNivel total promedio del gremio: " + String.format("%.2f", promedio)
+             + "\nTotal de aventureros: " + personajes.size();
     }
     
     private void limpiarCampos() {
