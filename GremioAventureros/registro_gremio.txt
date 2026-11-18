@@ -1,0 +1,18 @@
+Registro: Juan | PV: 30 | Nivel total: 13
+     - Guerrero (nivel 3) - Armadura pesada: Sí
+     - Mago (nivel 10) - Espacios de conjuro: 6
+Registro: Camilo | PV: 20 | Nivel total: 11
+     - Monje (nivel 4) - Puntos de Ki: 10
+     - Pícaro (nivel 4) - Herramientas de ladrón: Si
+     - Explorador (nivel 3) - Terreno favorecido: Montaña
+Registro: Sofia | PV: 30 | Nivel total: 14
+     - Explorador (nivel 2) - Terreno favorecido: Desierto
+     - Guerrero (nivel 12) - Armadura pesada: No
+Registro: Sebastian | PV: 40 | Nivel total: 16
+     - Mago (nivel 5) - Espacios de conjuro: 18
+     - Bardo (nivel 2) - Instrumento: Flauta
+     - Paladín (nivel 4) - Puntos de fuerza: 20
+     - Explorador (nivel 5) - Terreno favorecido: Montaña
+Combate: El Explorador Sofia aplica Marca del Cazador sobre el objetivo para maximizar su daño sostenido.
+Combate: El Explorador Camilo aplica Marca del Cazador sobre el objetivo para maximizar su daño sostenido.
+Combate: El Pícaro Camilo aprovecha la ventaja táctica para asestar un Ataque Furtivo masivo y se reposiciona.
