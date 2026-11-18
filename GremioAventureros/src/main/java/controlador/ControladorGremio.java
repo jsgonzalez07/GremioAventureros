@@ -17,6 +17,7 @@ import modelo.Mago;
 import modelo.Monje;
 import modelo.Paladin;
 import modelo.Picaro;
+import modelo.RegistroGremio;
 /**
  *
  * @author juans
@@ -31,13 +32,76 @@ public class ControladorGremio implements ActionListener {
         this.vista = vista;
         this.personajes = new ArrayList<>();
         this.ganador = null;
+
+        this.vista.getBtnRegistrar().addActionListener(this);        
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Object fuente = e.getSource();        
+        Object fuente = e.getSource();
+
+        if (fuente == vista.getBtnRegistrar()) {
+            registrarDesdeVista();
+        }
     }
 
+    private void registrarDesdeVista() {
+        String nombre = vista.getTxtNombre().getText().trim();
+        String textoVida = vista.getTxtPuntosVida().getText().trim();
+
+        if (nombre.isEmpty() || textoVida.isEmpty()) {
+            vista.mostrarMensaje("Debe ingresar el nombre y los puntos de vida.");
+            return;
+        }
+
+        try {
+            int puntosVida = Integer.parseInt(textoVida);
+            if (puntosVida <= 0) {
+                vista.mostrarMensaje("Los puntos de vida deben ser mayores que 0.");
+                return;
+            }
+
+            Personaje nuevo = new Personaje(nombre, puntosVida);
+
+            for (int fila = 1; fila <= 4; fila++) {
+                String clase = (String) vista.getCmbClase(fila).getSelectedItem();
+                if (clase.equals("Ninguna")) {
+                    continue;
+                }
+                String textoNivel = vista.getTxtNivel(fila).getText().trim();
+                String atributo = vista.getTxtAtributo(fila).getText().trim();
+
+                if (textoNivel.isEmpty() || atributo.isEmpty()) {
+                    vista.mostrarMensaje("Complete el nivel y el atributo de la clase " + clase + ".");
+                    return;
+                }
+
+                int nivel = Integer.parseInt(textoNivel);
+                if (nivel <= 0) {
+                    vista.mostrarMensaje("El nivel de la clase " + clase + " debe ser mayor que 0.");
+                    return;
+                }
+
+                nuevo.agregarClase(crearClase(clase, nombre, nivel, atributo));
+            }
+
+            if (nuevo.getClases().isEmpty()) {
+                vista.mostrarMensaje("Debe elegir al menos una clase.");
+                return;
+            }
+
+            personajes.add(nuevo);
+            RegistroGremio.guardar("Registro: " + nuevo.toString());
+            vista.mostrarMensaje("Aventurero registrado:\n" + nuevo.toString());
+            limpiarCampos();
+
+        } catch (NumberFormatException ex) {
+            vista.mostrarMensaje("Error: los puntos de vida, los niveles y los atributos numéricos deben ser números enteros.");
+        } catch (IllegalArgumentException ex) {
+            vista.mostrarMensaje("Error: " + ex.getMessage());
+        }
+    }    
+    
     public Aventurero crearClase(String clase, String nombre, int nivel, String atributo) {
         switch (clase) {
             case "Guerrero":
@@ -80,6 +144,16 @@ public class ControladorGremio implements ActionListener {
         return numero;
     }    
 
+    private void limpiarCampos() {
+        vista.getTxtNombre().setText("");
+        vista.getTxtPuntosVida().setText("");
+        for (int fila = 1; fila <= 4; fila++) {
+            vista.getCmbClase(fila).setSelectedIndex(0);
+            vista.getTxtNivel(fila).setText("");
+            vista.getTxtAtributo(fila).setText("");
+        }
+    }    
+    
     public ArrayList<Personaje> getPersonajes() {
         return personajes;
     }
