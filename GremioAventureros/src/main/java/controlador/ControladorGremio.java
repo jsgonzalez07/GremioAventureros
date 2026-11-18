@@ -33,7 +33,8 @@ public class ControladorGremio implements ActionListener {
         this.personajes = new ArrayList<>();
         this.ganador = null;
         this.vista.getBtnRegistrar().addActionListener(this);    
-        this.vista.getBtnVerGremio().addActionListener(this);        
+        this.vista.getBtnVerGremio().addActionListener(this);
+        this.vista.getBtnLanzarDados().addActionListener(this);        
     }
 
     @Override
@@ -44,6 +45,8 @@ public class ControladorGremio implements ActionListener {
             registrarDesdeVista();
         } else if (fuente == vista.getBtnVerGremio()) {
             vista.mostrarMensaje(listarGremio());
+        } else if (fuente == vista.getBtnLanzarDados()) {
+            vista.mostrarMensaje(lanzarDados());
         }
     }
 
@@ -158,6 +161,45 @@ public class ControladorGremio implements ActionListener {
         }
         return texto;
     }    
+
+    public String lanzarDados() {
+        if (personajes.size() < 2) {
+            return "Se necesitan al menos 2 aventureros para lanzar los dados.";
+        }
+
+        ArrayList<Personaje> candidatos = new ArrayList<>(personajes);
+        String texto = "Lanzamiento de dados:\n";
+
+        while (candidatos.size() > 1) {
+            int mayor = 0;
+            ArrayList<Personaje> empatados = new ArrayList<>();
+            for (Personaje p : candidatos) {
+                int dado = p.lanzarDado();
+                texto = texto + "  " + p.getNombre() + ": " + dado + "\n";
+                if (dado > mayor) {
+                    mayor = dado;
+                    empatados.clear();
+                    empatados.add(p);
+                } else if (dado == mayor) {
+                    empatados.add(p);
+                }
+            }
+            if (empatados.size() > 1) {
+                texto = texto + "Empate con " + mayor + ". Se vuelve a lanzar entre los empatados:\n";
+            }
+            candidatos = empatados;
+        }
+
+        ganador = candidatos.get(0);
+
+        vista.getCmbClaseCombate().removeAllItems();
+        for (Aventurero clase : ganador.getClases()) {
+            vista.getCmbClaseCombate().addItem(clase.getNombreClase());
+        }
+
+        return texto + "\nGanador: " + ganador.getNombre()
+             + ". Elige la clase para pelear y presiona Simular combate.";
+    }
     
     private void limpiarCampos() {
         vista.getTxtNombre().setText("");
