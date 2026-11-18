@@ -8,6 +8,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import modelo.Aventurero;
 import modelo.Personaje;
+import controlador.ControladorGremio;
+import vista.VistaGremio;
 /**
  *
  * @author juans
@@ -15,7 +17,10 @@ import modelo.Personaje;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        VistaGremio vista = new VistaGremio();
+        new ControladorGremio(vista);
+        vista.setLocationRelativeTo(null);
+        vista.setVisible(true);
     }
     
     public static String reporteCantidadPorClase(ArrayList<Personaje> lista) {
